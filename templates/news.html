@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {%block content%}
+    <h1 style="text-align: center;">{{title}}</h1>
+{% for aut in auth %}  
+     <a href="{% url 'detail_news' pk=aut.id %}">{{aut.fio}}</a>
+    
+     <br>
+     <a href="{% url 'delete-author' pk=aut.id %}">Удалить</a>
+     <a href="{% url 'update-author' pk=aut.id %}">Редактировать</a>
+     
+ 
+    <hr/>
+
+{% endfor %}
+{%blockend%}
+</body>
+</html>

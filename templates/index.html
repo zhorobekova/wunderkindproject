@@ -1,0 +1,72 @@
+{% load article_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+   {% for auth in author %}
+    {{auth.fio}} {{auth.address}}
+    <a href="{% url 'update-author' pk=auth.id %}">Update</a>
+    <form action="{% url 'delete-author' pk=auth.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete" />
+    </form>
+    <!-- <a href="{% url 'delete-author' pk=auth.id %}">delete</a> -->
+ 
+    <hr/>
+   {%endfor%}
+   <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for author in author %}
+        <tr>
+          <td>{{ author.fio|bek}}</td>
+          <td>{{ author.address }}</td>
+          <td>{{ author.email }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  {% if author.has_other_pages %}
+    <ul class="pagination">
+      {% if author.has_previous %}
+        <li><a href="?page={{ author.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in author.paginator.page_range %}
+        {% if author.number == i %}
+          <li class="active"><span>{{ i }} <span class="sr-only"></span></span></li>
+        {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if author.has_next %}
+        <li><a href="?page={{ author.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+  {% for author in author %}
+  <tr>
+    <td>{{ author.fio|length}}</td>
+    <td>{{ author.address }}</td>
+    <td>{{ author.email }}</td>
+  </tr>
+{% endfor %}
+  
+
+</body>
+</html>
