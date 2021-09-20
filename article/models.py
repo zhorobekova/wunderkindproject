@@ -44,7 +44,8 @@ class Readers(models.Model):
         return self.fio
     class Meta:
         verbose_name='Читатель'
-        verbose_name_plural='Читатели'  
+        verbose_name_plural='Читатели' 
+        print 
     
               
 
